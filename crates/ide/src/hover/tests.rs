@@ -2959,6 +2959,66 @@ struct S$0T<const C: usize = 1, T = Foo>(T);
 }
 
 #[test]
+fn const_generic_positive() {
+    check(
+        r#"
+struct Const<const N: i8>;
+
+fn main() {
+    let n$0um = Const::<1>;
+}
+"#,
+        expect![[r#"
+            *num*
+
+            ```rust
+            let num: Const<1>
+            ```
+        "#]],
+    );
+}
+
+#[test]
+fn const_generic_zero() {
+    check(
+        r#"
+struct Const<const N: i8>;
+
+fn main() {
+    let n$0um = Const::<0>;
+}
+"#,
+        expect![[r#"
+            *num*
+
+            ```rust
+            let num: Const<0>
+            ```
+        "#]],
+    );
+}
+
+#[test]
+fn const_generic_negative() {
+    check(
+        r#"
+struct Const<const N: i8>;
+
+fn main() {
+    let n$0um = Const::<-1>;
+}
+"#,
+        expect![[r#"
+            *num*
+
+            ```rust
+            let num: Const<-1>
+            ```
+        "#]],
+    );
+}
+
+#[test]
 fn hover_self_param_shows_type() {
     check(
         r#"
